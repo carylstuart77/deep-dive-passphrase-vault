@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.passphrase;
+package edu.cnm.deepdive.passphrase.ui;
 
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -8,7 +8,7 @@ import org.apache.commons.cli.Options;
 
 public class CommandLine {
  public static void main(String[] args) {
-   //type (upper Options) instance (lower options)
+   //type (upper edu.cnm.deepdive.passphrase.Options) instance (lower options)
    try {
      Options options = buildOptions();
      CommandLineParser parser = new DefaultParser();
