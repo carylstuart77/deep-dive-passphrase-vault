@@ -15,7 +15,7 @@ public class Constants {
     public static final String EXCLUDES_DIGITS = "excludesDigits";
     public static final String EXCLUDES_SYMBOLS = "excludesSymbols";
     public static final String EXCLUDES_AMBIGUOUS = "excludesAmbiguous";
-    public static final String EXCLUEDS_ORDER = "excludesOrder";
+    public static final String EXCLUDES_ORDER = "excludesOrder";
 
     // Definitions of the Specifications string variables
     public static final String SPECIFY_LENGTH = "specifyLength";
