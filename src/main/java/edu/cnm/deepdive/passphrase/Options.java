@@ -71,14 +71,13 @@ public class Options {
                                                        .build();
     Option ambiguousOpt =      Option.builder("a").hasArg(false)
                                                        .required(false)
-                                                       .longOpt(
-                                                           Constants.NO_AMBIGUOUS_CHARACTERS_OPTION)
+                                                       .longOpt(Constants.NO_AMBIGUOUS_CHARACTERS_OPTION)
                                                        .desc(bundle.getString(Constants.EXCLUDES_AMBIGUOUS))
                                                        .build();
     Option orderOpt =          Option.builder()        .hasArg(false)
                                                        .required(false)
                                                        .longOpt(Constants.EXCLUDES_ORDER_OPTION)
-                                                       .desc(bundle.getString(Constants.EXCLUEDS_ORDER))
+                                                       .desc(bundle.getString(Constants.EXCLUDES_ORDER))
                                                        .build();
     Option symbolsOpt =        Option.builder("s").hasArg(true)
                                                        .required(false)
