@@ -2,84 +2,187 @@ package edu.cnm.deepdive.passphrase;
 
 import edu.cnm.deepdive.passphrase.util.Constants;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Generates random passwords with user input.
+ */
+
 public class RandomPasswordGenerator extends RandomArtifactGenerator {
 
+  /** Excludes user options */
   private boolean orderExcluded = Constants.DEFAULT_ORDER_CONFIGURATION;
-  private boolean excludesUppercase = Constants.DEFAULT_EXCLUDES_UPPERCASE;
-  private boolean excludesLowercase = Constants.DEFAULT_EXCLUDES_LOWERCASE;
-  private boolean excludesDigits = Constants.DEFAULT_EXCLUDES_DIGITS;
-  private boolean excludesSymbols = Constants.DEFAULT_EXCLUDES_SYMBOLS;
-  private boolean excludesAmbiguous = Constants.DEFAULT_EXCLUDES_AMBIGUOUS;
+  /** Accesses and stores user's UpperCase preference*/
+  private boolean uppercaseExcluded = Constants.DEFAULT_EXCLUDES_UPPERCASE;
+  /** Accesses and stores user's LowerCase preference*/
+  private boolean lowercaseExcluded = Constants.DEFAULT_EXCLUDES_LOWERCASE;
+  /** Accesses and stores user's Digits preference*/
+  private boolean digitsExcluded = Constants.DEFAULT_EXCLUDES_DIGITS;
+  /** Accesses and stores user's Symbol preference*/
+  private boolean symbolsExcluded = Constants.DEFAULT_EXCLUDES_SYMBOLS;
+  /** Accesses and stores user's Ambiguous preference*/
+  private boolean ambiguousExcluded = Constants.DEFAULT_EXCLUDES_AMBIGUOUS;
 
-  //TODO - add StringBuilder.setCharAt
-  //TODO - make setters for all private constants
-  //TODO - set all default values for the fields
-  //TODO - add setters to constructor
 
+  /** Constructor for the Password Length*/
   public RandomPasswordGenerator() {
     setLength(Constants.DEFAULT_PASSWORD_LENGTH);
   }
 
+  /**Checks for user input and generates random password based on options selected.
+   *
+   * @return returns a random generated password
+   */
   public String generate() {
-    List<String> characters = new ArrayList<>();
+    StringBuilder pool = new StringBuilder();
+    String ambiguousRegex;
+    if (ambiguousExcluded) {
+      ambiguousRegex = "[" + new String(Constants.AMBIGUOUS) + "]";
+    } else {
+      ambiguousRegex = "(?!a)a";
+    }
+    if (!uppercaseExcluded) {
+      pool.append(Constants.UPPERCASE.replaceAll(ambiguousRegex, ""));
+    }
+    if (!lowercaseExcluded) {
+      pool.append(Constants.LOWERCASE.replaceAll(ambiguousRegex, ""));
+    }
+    if (!digitsExcluded) {
+      pool.append(Constants.DIGITS.replaceAll(ambiguousRegex, ""));
+    }
+    if (!symbolsExcluded) {
+      pool.append(Constants.SYMBOLS.replaceAll(ambiguousRegex, ""));
+    }
+
+    String source = pool.toString();
+    List<Character> characters = new LinkedList<>();
     while (characters.size() < getLength()) {
-      String character = WordList.getRandom(getRng());
-      if (isRepeatedAllowed() || !characters.contains(character)) {
-        characters.add(character);
+      char c = source.charAt(getRng().nextInt(source.length()));
+      if (isRepeatedAllowed() || !characters.contains(c)) {
+        if (!orderExcluded) {
+          characters.add(c);
+        } else {
+          boolean searchAscending = true;
+          boolean searchDescending = true;
+          for (int i = 0; i <= Constants.MAX_ORDER_LENGTH; i++) {
+            if (searchAscending && characters.get(characters.size() - i) == (char) (c - i)) {
+              searchDescending = false;
+            } else if (searchDescending && characters.get(characters.size() - i) == (char) (c
+                + i)) {
+              searchAscending = false;
+            } else {
+              characters.add(c);
+              break;
+            }
+          }
+        }
       }
     }
-    return characters.stream().collect(Collectors.joining(Character.toString(delimiter)));
+
+    StringBuilder password = new StringBuilder();
+    for (char c : characters) {
+      password.append(c);
+    }
+    return password.toString();
   }
 
+  /**
+   * Provides access to Order preference
+   * @return returns user specified order
+   */
   public boolean isOrderExcluded() {
     return orderExcluded;
   }
 
+  /**
+   * Allows mutation of order preference
+   * @param orderExcluded passes user defined order
+   */
   public void setOrderExcluded(boolean orderExcluded) {
     this.orderExcluded = orderExcluded;
   }
 
-  public boolean isExcludesUppercase() {
-    return excludesUppercase;
+  /**
+   * Provides access to Uppercase Exclusion
+   * @return returns an Uppercase selection
+   */
+  public boolean isUppercaseExcluded() {
+    return uppercaseExcluded;
   }
 
-  public void setExcludesUppercase(boolean excludesUppercase) {
-    this.excludesUppercase = excludesUppercase;
+  /**
+   * Allows mutation of the Uppercase preference
+   * @param uppercaseExcluded passes user defined selection
+   */
+  public void setUppercaseExcluded(boolean uppercaseExcluded) {
+    this.uppercaseExcluded = uppercaseExcluded;
   }
 
-  public boolean isExcludesLowercase() {
-    return excludesLowercase;
+  /**
+   * Provides access to Lowercase Exclusion
+   * @return returns a Lowercase selection
+   */
+  public boolean isLowercaseExcluded() {
+    return lowercaseExcluded;
   }
 
-  public void setExcludesLowercase(boolean excludesLowercase) {
-    this.excludesLowercase = excludesLowercase;
+
+  /**
+   * Allows mutation of the Lowercase preference
+   * @param lowercaseExcluded passes user defined selection
+   */
+  public void setLowercaseExcluded(boolean lowercaseExcluded) {
+    this.lowercaseExcluded = lowercaseExcluded;
   }
 
-  public boolean isExcludesDigits() {
-    return excludesDigits;
+  /**
+   * Provides access to Digit Exclusion
+   * @return returns digit selection
+   */
+  public boolean isDigitsExcluded() {
+    return digitsExcluded;
   }
 
-  public void setExcludesDigits(boolean excludesDigits) {
-    this.excludesDigits = excludesDigits;
+  /**
+   * Allows mutation of Digits preference
+   * @param digitsExcluded passes user defined selection
+   */
+  public void setDigitsExcluded(boolean digitsExcluded) {
+    this.digitsExcluded = digitsExcluded;
   }
 
-  public boolean isExcludesSymbols() {
-    return excludesSymbols;
+  /**
+   * Provides access to Symbol Exclusion
+   * @return returns symbol selection
+   */
+  public boolean isSymbolsExcluded() {
+    return symbolsExcluded;
   }
 
-  public void setExcludesSymbols(boolean excludesSymbols) {
-    this.excludesSymbols = excludesSymbols;
+  /**
+   * Allows mutation of Symbols preference
+   * @param symbolsExcluded passes user defined selection
+   */
+  public void setSymbolsExcluded(boolean symbolsExcluded) {
+    this.symbolsExcluded = symbolsExcluded;
   }
 
-  public boolean isExcludesAmbiguous() {
-    return excludesAmbiguous;
+  /**
+   * Provides access to Ambiguous Exclusions
+   * @return returns ambiguous selection
+   */
+  public boolean isAmbiguousExcluded() {
+    return ambiguousExcluded;
   }
 
-  public void setExcludesAmbiguous(boolean excludesAmbiguous) {
-    this.excludesAmbiguous = excludesAmbiguous;
+  /**
+   * Allows mutation of Ambiguous preference
+   * @param ambiguousExcluded passes user defined selection
+   */
+  public void setAmbiguousExcluded(boolean ambiguousExcluded) {
+    this.ambiguousExcluded = ambiguousExcluded;
   }
 
 }
