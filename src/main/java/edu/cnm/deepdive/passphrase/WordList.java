@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  */
 public class WordList {
 
-  /**Creates a String array to store generated words.*/
+  /** Creates a String array to store generated words.*/
   private final String[] words;
 
   /**Implements Singleton pattern to keep track of one INSTANCE of a class at a time.*/
@@ -21,7 +21,7 @@ public class WordList {
     /**Creates an instance of a WordList class.*/
     private static final WordList INSTANCE = new WordList();
   }
-  /**Creates a WordList by streaming reading and writing the WORDS_BUNDLE.*/
+  /** Creates a WordList by streaming reading and writing the WORDS_BUNDLE.*/
   private WordList() {
     ResourceBundle bundle = ResourceBundle.getBundle(Constants.WORDS_BUNDLE);
     List<String> wordList = new LinkedList<>();

@@ -3,6 +3,10 @@ package edu.cnm.deepdive.passphrase;
 import edu.cnm.deepdive.passphrase.util.Constants;
 import java.util.Random;
 
+/**
+ *
+ */
+
 public abstract class RandomArtifactGenerator {
 
   private int length;

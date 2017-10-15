@@ -142,8 +142,8 @@ public class Options {
   }
 
   /**
-   *  Defines my options and associates them with Constants class. Returns
-   *  populated options object that is used by the Map, Validation, and Parse to CommandLine
+   * Defines my options and associates them with Constants class. Returns
+   * populated options object that is used by the Map, Validation, and Parse to CommandLine
    */
   private org.apache.commons.cli.Options buildOptions() {
     //returns a builder      //this list of options can be in any order I want

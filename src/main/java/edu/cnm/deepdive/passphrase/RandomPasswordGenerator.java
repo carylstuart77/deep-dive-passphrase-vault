@@ -22,7 +22,7 @@ public class RandomPasswordGenerator extends RandomArtifactGenerator {
   private boolean digitsExcluded = Constants.DEFAULT_EXCLUDES_DIGITS;
   /** Accesses and stores user's Symbol preference*/
   private boolean symbolsExcluded = Constants.DEFAULT_EXCLUDES_SYMBOLS;
-  /** Accesses and stores user's Ambiguous preference*/
+  /** Accesses and stores user's Ambiguous preference */
   private boolean ambiguousExcluded = Constants.DEFAULT_EXCLUDES_AMBIGUOUS;
 
 

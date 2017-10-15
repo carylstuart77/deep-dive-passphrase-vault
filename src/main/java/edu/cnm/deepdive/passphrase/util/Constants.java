@@ -126,7 +126,7 @@ public class Constants {
   /**Symbols String*/
   public static final String SYMBOLS = "*!<>?/@#$%^&()-+_,.\\|{}[]~`:;\'\"";
   /**Ambiguous Character String*/
-  public static final char[] AMBIGUOUS = {'l', '1', 'o', 'O'};
+  public static final char[] AMBIGUOUS = {'l', '1', '0', 'O'};
   /**Maximum sequence of Ordered Characters*/
   public static final int MAX_ORDER_LENGTH = 2;
 

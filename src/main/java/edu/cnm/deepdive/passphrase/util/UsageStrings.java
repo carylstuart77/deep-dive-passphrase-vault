@@ -3,8 +3,8 @@ package edu.cnm.deepdive.passphrase.util;
 import java.util.ResourceBundle;
 
 public class UsageStrings {
-  //Singleton One thread of execution
-  //Want to be thread safe
+  // Singleton One thread of execution
+  // Want to be thread safe
   private final ResourceBundle bundle;
 
   private static class Singleton {

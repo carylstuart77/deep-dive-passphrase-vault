@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**Generates delimited random passphrase*/
+/** Generates delimited random passphrase*/
 public class RandomPassphraseGenerator extends RandomArtifactGenerator {
 
   /**  Stores delimiter provided by user selection. */
