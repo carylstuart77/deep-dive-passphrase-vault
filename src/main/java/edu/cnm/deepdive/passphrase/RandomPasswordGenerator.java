@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Generates random passwords with user input.
+ *  Generates random passwords with user input.
  */
 
 public class RandomPasswordGenerator extends RandomArtifactGenerator {

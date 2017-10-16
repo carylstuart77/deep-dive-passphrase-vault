@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 public class UsageStrings {
   // Singleton One thread of execution
-  // Want to be thread safe
+  //  Want to be thread safe
   private final ResourceBundle bundle;
 
   private static class Singleton {

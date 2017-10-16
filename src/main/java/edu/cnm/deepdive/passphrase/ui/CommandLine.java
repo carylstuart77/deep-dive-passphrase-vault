@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.cli.ParseException;
 
-//TODO -  Write main method as a test rig for Options class.
+//TODO -   Write main method as a test rig for Options class.
 
 public class CommandLine {
 

@@ -20,8 +20,8 @@ import edu.cnm.deepdive.passphrase.util.Constants;
 import edu.cnm.deepdive.passphrase.util.UsageStrings;
 
 /**
- * Provides a framework of Options for the CommandLine to use a reference.
- * Contains Parse Options, buildOptions, Map Implementations, Options Validation.
+ *  Provides a framework of Options for the CommandLine to use a reference.
+ *   Contains Parse Options, buildOptions, Map Implementations, Options Validation.
  *
  */
 public class Options {

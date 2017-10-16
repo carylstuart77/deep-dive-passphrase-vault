@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  */
 public class WordList {
 
-  /** Creates a String array to store generated words.*/
+  /**  Creates a String array to store generated words.*/
   private final String[] words;
 
   /**Implements Singleton pattern to keep track of one INSTANCE of a class at a time.*/

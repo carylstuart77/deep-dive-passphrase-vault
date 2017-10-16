@@ -3,7 +3,7 @@ package edu.cnm.deepdive.passphrase;
     import edu.cnm.deepdive.passphrase.util.Constants;
     import java.util.Random;
 
-/**class used to generate passphrase/passwords using Math.Random*/
+/** class used to generate passphrase/passwords using Math.Random*/
 public abstract class RandomArtifactGenerator {
 
   /** length of password/passphrase supplied by user*/

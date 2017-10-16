@@ -15,7 +15,7 @@ public class Constants {
   public static final String EXCLUDES_REPEAT = "repeatExcluded";
   /** Usage string key for excluding Uppercase characters*/
   public static final String EXCLUDES_UPPERCASE = "uppercaseExcluded";
-  /** Usage string key for excluding Lowercase characters*/
+  /**  Usage string key for excluding Lowercase characters*/
   public static final String EXCLUDES_LOWERCASE = "lowercaseExcluded";
   /** Usage string key for excluding Digit characters*/
   public static final String EXCLUDES_DIGITS = "digitsExcluded";
