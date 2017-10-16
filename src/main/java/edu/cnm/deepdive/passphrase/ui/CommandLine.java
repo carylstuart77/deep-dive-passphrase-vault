@@ -1,8 +1,11 @@
 package edu.cnm.deepdive.passphrase.ui;
 
 import edu.cnm.deepdive.passphrase.Options.HelpRequestedException;
+import edu.cnm.deepdive.passphrase.RandomPassphraseGenerator;
+import edu.cnm.deepdive.passphrase.RandomPasswordGenerator;
 import edu.cnm.deepdive.passphrase.util.Constants;
 import edu.cnm.deepdive.passphrase.Options;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.cli.ParseException;
@@ -21,7 +24,9 @@ public class CommandLine {
         System.out.printf("%s = %s%n", entry.getKey(), entry.getValue());
       }
       boolean passwordMode = map.containsKey(Constants.PASSWORD_MODE_OPTION);
+      RandomPasswordGenerator generator;
       if (passwordMode) {
+        generator= new RandomPasswordGenerator();
         for (String key : map.keySet()) {
           switch (key) {
             case Constants.EXCLUDES_REPEAT:
@@ -53,19 +58,23 @@ public class CommandLine {
         }
       } else {
         //passphrase mode
+        generator = new RandomPassphraseGenerator();
         for (String key : map.keySet()) {
           switch (key) {
             case Constants.NO_REPEAT_OPTION:
               System.out.println("User specified no repeat words.");
               break;
-            case Constants.SPECIFY_LENGTH:
-              System.out.println("User specified length.");
+            case Constants.LENGTH.OPTION:
+              generator.setLength(((Number) map.get(Constants.LENGTH_OPTION)).intValue());
               break;
-            case Constants.SPECIFY_DELIMITER:
-              System.out.println("User specified delimiter.");
+            case Constants.DELIMITER_OPTION:
+              ((RandomPassphraseGenerator) generator)
+                  .setDelimiter(((String) map.get(Constants.DELIMITER_OPTION))).charAt(0));
               break;
           }
         }
+        generator.setRng(new SecureRandom());
+        System.out.println(generator.generate());
       }
     } catch (Exception ex) {
       System.exit(-1);
