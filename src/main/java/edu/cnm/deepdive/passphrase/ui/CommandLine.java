@@ -1,13 +1,16 @@
 package edu.cnm.deepdive.passphrase.ui;
 
 import edu.cnm.deepdive.passphrase.Options.HelpRequestedException;
+import edu.cnm.deepdive.passphrase.RandomArtifactGenerator;
 import edu.cnm.deepdive.passphrase.RandomPassphraseGenerator;
 import edu.cnm.deepdive.passphrase.RandomPasswordGenerator;
 import edu.cnm.deepdive.passphrase.util.Constants;
 import edu.cnm.deepdive.passphrase.Options;
+import edu.cnm.deepdive.passphrase.util.UsageStrings;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import org.apache.commons.cli.ParseException;
 
 //TODO -   Write main method as a test rig for Options class.
@@ -15,6 +18,7 @@ import org.apache.commons.cli.ParseException;
 public class CommandLine {
 
   public static void main(String[] args) {
+    ResourceBundle resourceBundle = UsageStrings.getBundle();
     //Options options = null;
     try {
       Options options = new Options(args);
@@ -24,37 +28,36 @@ public class CommandLine {
         System.out.printf("%s = %s%n", entry.getKey(), entry.getValue());
       }
       boolean passwordMode = map.containsKey(Constants.PASSWORD_MODE_OPTION);
-      RandomPasswordGenerator generator;
+      RandomArtifactGenerator generator;
       if (passwordMode) {
         generator= new RandomPasswordGenerator();
         for (String key : map.keySet()) {
           switch (key) {
             case Constants.EXCLUDES_REPEAT:
-              System.out.println("User specified no repeat characters.");
+              System.out.println(Constants.REPEAT_WARNING);
               break;
             case Constants.EXCLUDES_UPPERCASE:
-              System.out.println("User specified no uppercase.");
+              System.out.println(Constants.UPPERCASE_WARNING);
               break;
             case Constants.EXCLUDES_LOWERCASE:
-              System.out.println("User specified no lowercase.");
+              System.out.println(Constants.LOWERCASE_WARNING);
               break;
             case Constants.EXCLUDES_DIGITS:
-              System.out.println("User specified no digits.");
+              System.out.println(Constants.DIGIT_WARNING);
               break;
             case Constants.EXCLUDES_AMBIGUOUS:
-              System.out.println("User specified no ambiguous characters.");
+              System.out.println(Constants.AMBIGUOUS_WARNING);
               break;
             case Constants.EXCLUDES_ORDER:
-              System.out.println("User specified no order characters.");
+              System.out.println(Constants.ORDER_WARNING);
               break;
             case Constants.EXCLUDES_SYMBOLS:
-              System.out.println("User specified no symbols.");
+              System.out.println(Constants.SYMBOL_WARNING);
               break;
             case Constants.SPECIFY_LENGTH:
-              System.out.println("User specified length.");
+              System.out.println(Constants.LENGTH_WARNING);
               break;
           }
-
         }
       } else {
         //passphrase mode
@@ -62,9 +65,9 @@ public class CommandLine {
         for (String key : map.keySet()) {
           switch (key) {
             case Constants.NO_REPEAT_OPTION:
-              System.out.println("User specified no repeat words.");
+              generator.setRepeatedAllowed(false);
               break;
-            case Constants.LENGTH.OPTION:
+            case Constants.LENGTH_OPTION:
               generator.setLength(((Number) map.get(Constants.LENGTH_OPTION)).intValue());
               break;
             case Constants.DELIMITER_OPTION:
@@ -73,9 +76,9 @@ public class CommandLine {
               break;
           }
         }
+      }
         generator.setRng(new SecureRandom());
         System.out.println(generator.generate());
-      }
     } catch (Exception ex) {
       System.exit(-1);
     }
